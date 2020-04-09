@@ -23,10 +23,13 @@ spec:
       - image: 664320496234.dkr.ecr.us-east-1.amazonaws.com/terraform-eks-demo-ecr:api-test-back
         imagePullPolicy: Always
         name: api-test-back
+        env:
+        - name: AWS_XRAY_DAEMON_ADDRESS 
+          value: xray-service.default
         ports:
         - containerPort: 80
           protocol: TCP
-        resources: {}
+        resources: {"requests":{"cpu":"200m"}}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
